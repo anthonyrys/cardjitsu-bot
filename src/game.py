@@ -1,0 +1,2 @@
+class game:
+    pass
