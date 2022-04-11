@@ -8,7 +8,7 @@ TYPES: List[str] = ['fire', 'water', 'snow']
 
 @dataclass
 class card:
-    # object variables
+    # default object variables
     color: str = 'green'
     type: str = 'ice'
     rank: int = 5
