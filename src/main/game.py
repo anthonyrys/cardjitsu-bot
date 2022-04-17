@@ -1,6 +1,6 @@
+from typing import List, Dict, Union
 from card import card
 from player import player, bot
-from typing import List, Dict, Union
 
 '''
     Original rules: https://clubpenguin.fandom.com/wiki/Card-Jitsu#Winning
@@ -24,15 +24,9 @@ class game:
         self.players: List[player] = [player_one, player_two]
         self.won_cards: Dict[player, List[card]] = {player_one: [], player_two: []}
 
-        self.run()
-
-    def run(self) -> None:
-        while (self.check_match_condition() is None):
-            pass
-
     def check_round_condition(self) -> Union[None, player]:
-        card_one: card = self.players[0].invoke_card()
-        card_two: card = self.players[1].invoke_card()
+        card_one: card = self.players[0].selected_card
+        card_two: card = self.players[1].selected_card
 
         # a bunch of if-else statements for checking round conditions
         if (card_one.get().get('type') == 'fire'):

@@ -12,6 +12,7 @@ class player:
         self.selected_card: card = None
 
         self.create_deck()
+        self.invoke_hand()
 
     def create_deck(self) -> None:
         # creates deck of 10 random cards
@@ -35,30 +36,11 @@ class player:
         self.graveyard.append(self.selected_card)
         self.selected_card = None
 
-    def invoke_card(self) -> card:
+    def invoke_card(self, select: int) -> card:
+        self.selected_card = self.hand[select]
+        del self.hand[select]
+
         self.invoke_hand()
-
-        # placeholder /s
-        for c, _ in enumerate(self.hand, start = 1):
-            print(f'\ncard {c}:')
-            for i, v in enumerate(_.get().values()):
-                print(v)
-
-        while True:
-            try:
-                select: int = int(input('\npick a card: ')) - 1
-
-                self.selected_card = self.hand[select]
-                del self.hand[select]
-                break
- 
-            except IndexError:
-                continue
-
-            except ValueError:
-                continue
-        # placeholder /e
-
         return (self.selected_card)
 
     def get_hand(self) -> List[card]:
