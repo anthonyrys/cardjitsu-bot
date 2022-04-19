@@ -5,7 +5,7 @@ from typing import Dict, List, Union
 # global variables
 COLORS: List[str] = ['red', 'blue', 'yellow', 'green', 'orange', 'purple']
 TYPES: List[str] = ['fire', 'water', 'snow']
-TRANSLATES: Dict[Union[str, int], str] = {
+CARD_CONVERSIONS: Dict[Union[str, int], str] = {
     'fire': '🔥',
     'water': '💧',
     'snow': '❄️',
