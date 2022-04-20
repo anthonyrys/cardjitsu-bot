@@ -19,7 +19,7 @@ from player import player, bot
 '''
 
 class game:
-    def __init__(self, player_one: player, player_two: player) -> None:
+    def __init__(self, player_one: player = None, player_two: player = None) -> None:
         # setting up game variables
         self.players: List[player] = [player_one, player_two]
         self.won_cards: Dict[player, List[card]] = {player_one: [], player_two: []}
@@ -59,22 +59,20 @@ class game:
             cards: List[card] = self.won_cards.get(p)
 
             # checking condition 1
-            condition_types: Dict[str, int] = {
-                'fire': 0,
-                'snow': 0,
-                'water': 0
-            }
+            fire_num: int = 0
+            snow_num: int = 0
+            water_num: int = 0
 
             for c in cards:
-                if (c.get().get('type') == 'fire'): condition_types['fire'] += 1
-                if (c.get().get('type') == 'snow'): condition_types['snow'] += 1
-                if (c.get().get('type') == 'snow'): condition_types['water'] += 1
+                if (c.get().get('type') == 'fire'): fire_num += 1
+                if (c.get().get('type') == 'snow'): snow_num += 1
+                if (c.get().get('type') == 'water'): water_num += 1
 
             # filtering types with 3 or more of the same
             found_types: List[str] = []
-            for k, v in condition_types.items():
-                if (v >= 3): 
-                    found_types.append(k)
+            if (fire_num >= 3): found_types.append('fire')
+            if (snow_num >= 3): found_types.append('snow')
+            if (water_num >= 3): found_types.append('water')
 
             if (found_types):
                 validation_list: List[card] = []
@@ -90,28 +88,29 @@ class game:
 
 
             # checking condition 2
-            condition_colors: Dict[str, int] = {
-                'red': 0,
-                'blue': 0,
-                'yellow': 0,
-                'green': 0,
-                'orange': 0,
-                'purple': 0
-            }
+            red_num: int = 0
+            blue_num: int =  0
+            yellow_num: int = 0
+            green_num: int = 0
+            orange_num: int = 0
+            purple_num: int = 0
 
             for c in cards:
-                if (c.get().get('color') == 'red'): condition_colors['red'] += 1
-                if (c.get().get('color') == 'blue'): condition_colors['blue'] += 1
-                if (c.get().get('color') == 'yellow'): condition_colors['yellow'] += 1
-                if (c.get().get('color') == 'green'): condition_colors['green'] += 1
-                if (c.get().get('color') == 'orange'): condition_colors['orange'] += 1
-                if (c.get().get('color') == 'purple'): condition_colors['purple'] += 1
+                if (c.get().get('color') == 'red'): red_num += 1
+                if (c.get().get('color') == 'blue'): blue_num += 1
+                if (c.get().get('color') == 'yellow'): yellow_num += 1
+                if (c.get().get('color') == 'green'): green_num += 1
+                if (c.get().get('color') == 'orange'): orange_num += 1
+                if (c.get().get('color') == 'purple'): purple_num += 1
 
             # filtering colors with 3 or more of the same
             found_colors: List[str] = []
-            for k, v in condition_colors.items():
-                if (v >= 3): 
-                    found_colors.append(k)
+            if (red_num >= 3): found_types.append('red')
+            if (blue_num >= 3): found_types.append('blue')
+            if (yellow_num >= 3): found_types.append('yellow')
+            if (green_num >= 3): found_types.append('green')
+            if (orange_num >= 3): found_types.append('orange')
+            if (purple_num >= 3): found_types.append('purple')
 
             if (found_colors):
                 validation_list: List[card] = []
@@ -126,6 +125,3 @@ class game:
                 if (len(inner_types) >= 3): return (p)
 
         return (None)
-
-    def compare_cards(self) -> player:
-        pass

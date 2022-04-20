@@ -40,7 +40,6 @@ class player:
         self.selected_card = self.hand[select]
         del self.hand[select]
 
-        self.invoke_hand()
         return (self.selected_card)
 
     def get_hand(self) -> List[card]:

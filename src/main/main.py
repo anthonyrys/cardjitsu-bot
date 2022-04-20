@@ -1,12 +1,6 @@
 def main() -> None:
     discord_bot: discord.Client = discord.Client()
 
-    raw_user_pool: List[discord.Member] = []
-    active_user_pool: List[discord.Member] = []
-
-    # list of the lobby class for storage
-    lobby_storage: List[lobby] = [lobby(0)]
-
     @discord_bot.event
     async def on_ready() -> None:
         print(f'logged {discord_bot.user}')
@@ -27,9 +21,11 @@ def main() -> None:
         message: discord.Message = await channel.fetch_message(int(payload.message_id))
 
         # if not bot, or reaction is in pre-defined categories
-        if (user == discord_bot.user or str(channel.category.id) not in CATEGORIES or user in active_user_pool): return
+        if (user == discord_bot.user or str(channel.category.id) not in CATEGORIES): return
 
-        if (REACTION_CONVERSIONS.get(str(emoji))) == 'lobby_create':
+        if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create'):
+            if (user in active_user_pool): return
+
             raw_user_pool.append(user)
 
             if (len(raw_user_pool) < 2): return
@@ -52,23 +48,44 @@ def main() -> None:
 
             return
 
-        await globals()[f'on_{REACTION_CONVERSIONS.get(str(emoji))}'](bot = discord_bot, msg = message, us = user)
+        if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_confirm'):
+            await globals()[f'on_{REACTION_CONVERSIONS.get(str(emoji))}'](
+                bot = discord_bot, 
+                msg = message, 
+                us = user,
+                ls = lobby_storage
+            )
+
+            return
+
+        await globals()[f'on_{REACTION_CONVERSIONS.get(str(emoji))}'](bot = discord_bot, msg = message, us = user, ls = lobby_storage)
 
     @discord_bot.event
     async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent) -> None:
         emoji: discord.Emoji = payload.emoji
         channel: discord.Guild = discord_bot.get_channel(int(payload.channel_id))
+        user_id: int = payload.user_id
         message: discord.Message = await channel.fetch_message(int(payload.message_id))
 
         # if not bot, or reaction is in pre-defined categories
         if (payload.user_id == discord_bot.user.id or str(channel.category.id) not in CATEGORIES): return
 
-        if (REACTION_CONVERSIONS.get(str(emoji))) == 'lobby_create':
+        if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create'):
             raw_user: discord.Member = None
             for u in raw_user_pool:
                 if (u.id == payload.user_id): raw_user = u
             
             if (raw_user): raw_user_pool.remove(raw_user)
+
+            return
+
+        if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_confirm'):
+            await globals()[f'on_lobby_deconfirm'](
+                bot = discord_bot, 
+                msg = message, 
+                usi = user_id,
+                ls = lobby_storage
+            )
 
             return
 
