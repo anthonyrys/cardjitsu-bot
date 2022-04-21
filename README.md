@@ -32,3 +32,6 @@ creates lobbies as to create a sense of privacy
 5. repalce <em>YOUR_CHANNELS_HERE</em> inside ``data/channels.txt`` with the ids of the channels you want the bot to post in
 ### public-hosting
 ##### <em>coming soon</em>
+
+## compatibility
+#### currently only tested on windows
