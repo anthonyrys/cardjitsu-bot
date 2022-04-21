@@ -29,7 +29,7 @@ creates lobbies as to create a sense of privacy
 > ``add reactions`` 
 3. replace <em>YOUR_TOKEN_HERE</em> inside ``data/token.txt`` with your bot token
 4. replace <em>YOUR_CATEGORIES HERE</em> inside ``data/categories.txt`` with the ids of the categories you want the bot to read reactions from
-5. repalce <em>YOUR_CHANNELS_HERE</em> inside ``data/channels.txt`` with the ids of the channels you want the bot to post in
+5. replace <em>YOUR_CHANNELS_HERE</em> inside ``data/channels.txt`` with the ids of the channels you want the bot to post
 ### public-hosting
 ##### <em>coming soon</em>
 
