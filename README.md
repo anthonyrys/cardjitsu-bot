@@ -9,7 +9,7 @@
 ### multiplayer
 allows for players to play against each other by pairing them up<br/>
 
-creates lobbies as to create a sense of privacy
+creates lobbies to give a sense of privacy and security
 ### singleplayer
 ##### <em>coming soon</em>
 
