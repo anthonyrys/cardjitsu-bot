@@ -4,14 +4,14 @@ def main() -> None:
     @discord_bot.event
     async def on_ready() -> None:
         print(f'logged {discord_bot.user}')
+
         # creating the embedded message
         on_ready_embed: discord.Embed = await get_on_ready(discord_bot)
 
-        for i in CHANNELS:
-            msg: discord.Message = await discord_bot.get_channel(int(i)).send(embed = on_ready_embed)
+        msg: discord.Message = await discord_bot.get_channel(int(CHANNEL)).send(embed = on_ready_embed)
 
-            for r, v in REACTION_CONVERSIONS.items():
-                if v == 'lobby_create': await msg.add_reaction(r)
+        for r, v in REACTION_CONVERSIONS.items():
+            if v == 'lobby_create': await msg.add_reaction(r)
 
     @discord_bot.event
     async def on_raw_reaction_add(payload: discord.RawReactionActionEvent) -> None:
@@ -21,7 +21,7 @@ def main() -> None:
         message: discord.Message = await channel.fetch_message(int(payload.message_id))
 
         # if not bot, or reaction is in pre-defined categories
-        if (user == discord_bot.user or str(channel.category.id) not in CATEGORIES): return
+        if ((user == discord_bot.user) or (channel.category.id != discord_bot.get_channel(int(CHANNEL)).category.id)): return
 
         if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create'):
             if (user in active_user_pool): return
@@ -68,7 +68,7 @@ def main() -> None:
         message: discord.Message = await channel.fetch_message(int(payload.message_id))
 
         # if not bot, or reaction is in pre-defined categories
-        if (payload.user_id == discord_bot.user.id or str(channel.category.id) not in CATEGORIES): return
+        if ((payload.user_id == discord_bot.user.id) or (channel.category.id != discord_bot.get_channel(int(CHANNEL)).category.id)): return
 
         if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create'):
             raw_user: discord.Member = None
@@ -92,22 +92,17 @@ def main() -> None:
     discord_bot.run(TOKEN)
 
 if (__name__ == '__main__'):
-    from bot_methods import *
+    from methods import *
     
     TOKEN: str
-
-    CHANNELS: List[str]
-    CATEGORIES: List[str]
+    CHANNEL: str
 
     # getting token
     with open('src/main/data/token.txt', 'r') as t:
         TOKEN = t.readline()
 
-    # getting writable servers & channels
-    with open('src/main/data/channels.txt', 'r') as c:
-        CHANNELS = c.readlines()
-
-    with open('src/main/data/categories.txt', 'r') as c:
-        CATEGORIES = c.readlines()
+    # getting writable channel
+    with open('src/main/data/channel.txt', 'r') as c:
+        CHANNEL = c.readline()
 
     main()
