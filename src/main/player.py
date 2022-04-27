@@ -6,7 +6,7 @@ class player:
     def __init__(self) -> None:
         # setting up important stuff
         self.deck: List[card] = []
-        self.deck_amount: int = 15
+        self.deck_amount: int = 30
         self.hand: List[card] = []
         self.graveyard: List[card] = []
         self.selected_card: card = None
@@ -51,8 +51,6 @@ class bot(player):
         super().__init__()
 
     def invoke_card(self) -> None:
-        self.invoke_hand()
-
         # gets random card from hand
         item: card = random.choice(self.hand)
         self.selected_card = item

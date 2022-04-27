@@ -8,6 +8,8 @@ from game import game
 class lobby:
     # lobby variables
     lobby_id: int
+    # 0 = multiplayer, 1 = solo
+    lobby_type: int
     lobby_check: int
     lobby_game: game
     users: List[discord.Member]
@@ -22,7 +24,8 @@ class lobby:
             users: List[discord.Member] = None,
             chnls: List[discord.TextChannel] = None, 
             u_chnls: Dict[discord.TextChannel, discord.Member] = None,
-            u_plrs: Dict[discord.Member, player] = None) -> None:
+            u_plrs: Dict[discord.Member, player] = None,
+            l_type: int = 0) -> None:
         self.lobby_id = l_id 
         self.lobby_check = 0
         self.lobby_game = None
@@ -30,6 +33,7 @@ class lobby:
         self.channels = chnls
         self.user_channels = u_chnls
         self.user_players = u_plrs
+        self.lobby_type = l_type
         self.current_messages = None
 
     def set_game(self, gme: game) -> None:

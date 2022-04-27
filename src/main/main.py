@@ -12,6 +12,7 @@ def main() -> None:
 
         for r, v in REACTION_CONVERSIONS.items():
             if v == 'lobby_create': await msg.add_reaction(r)
+            if v == 'lobby_create_solo': await msg.add_reaction(r)
 
     @discord_bot.event
     async def on_raw_reaction_add(payload: discord.RawReactionActionEvent) -> None:
@@ -24,11 +25,13 @@ def main() -> None:
         if ((user == discord_bot.user) or (channel.category.id != discord_bot.get_channel(int(CHANNEL)).category.id)): return
 
         if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create'):
-            if (user in active_user_pool): return
+            if (user in active_user_pool): 
+                await message.remove_reaction(emoji, user)
+                return
 
             raw_user_pool.append(user)
-
             if (len(raw_user_pool) < 2): return
+
             info_dict: Dict[str, Union[List[discord.Member], lobby]] = await globals()[f'on_{REACTION_CONVERSIONS.get(str(emoji))}'](
                 bot = discord_bot, 
                 msg = message,
@@ -39,11 +42,36 @@ def main() -> None:
 
             # sets value returned from bot_methods
             for u_z in info_dict.get('users_to_remove_from_rup'):
+                raw_user_pool.remove(u_z)
                 await message.remove_reaction(emoji, u_z)
 
             for u_y in info_dict.get('users_to_add_to_aup'):
                 active_user_pool.append(u_y)
 
+            lobby_storage.append(info_dict.get('new_lobby'))
+
+            return
+
+        if (REACTION_CONVERSIONS.get(str(emoji)) == 'lobby_create_solo'):
+            if (user in active_user_pool): 
+                await message.remove_reaction(emoji, user)
+                return
+                
+            if (user in raw_user_pool):
+                await message.remove_reaction(emoji, user)
+                return
+
+            active_user_pool.append(user)
+
+            info_dict: Dict[str, Union[List[discord.Member], lobby]] = await globals()[f'on_{REACTION_CONVERSIONS.get(str(emoji))}'](
+                d_bot = discord_bot, 
+                msg = message,
+                us = user,
+                ls = lobby_storage
+            )
+
+            # sets value returned from bot_methods
+            await message.remove_reaction(emoji, info_dict.get('user_to_remove_from_rup'))
             lobby_storage.append(info_dict.get('new_lobby'))
 
             return

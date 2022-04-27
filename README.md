@@ -1,37 +1,42 @@
 # cardjitsu-bot
-#### a discord bot that allows you to play the club penguin game: [card-jitsu](https://clubpenguin.fandom.com/wiki/Card-Jitsu)
-#### made using the [discord API](https://discordpy.readthedocs.io/en/stable/)
+a discord bot that allows you to play the club penguin game: [card-jitsu](https://clubpenguin.fandom.com/wiki/Card-Jitsu)<br />
+
+made using the [discord API](https://discordpy.readthedocs.io/en/stable/)
 
 ## images
 ![card-jitsu gif](https://cdn.discordapp.com/attachments/841102995218890772/966487619368276038/card-jitsu_2.gif)
 
 ## content
 ### multiplayer
-allows for players to play against each other by pairing them up<br/>
+allows players to play against each other<br />
 
-creates lobbies to give a sense of privacy and security
-### singleplayer
-##### <em>coming soon</em>
+creates individual lobbies to provide game security
+
+### singleplayer 
+allows players to play alone instead of with another player
 
 ## how to use
 ### self-hosting
 1. create a discord application & bot [here](https://discord.com/developers/applications)
 2. add the bot to your desired discord with the following permissions:
-> ``manage roles``
-> ``manage channels`` 
-> ``moderate members`` 
-> ``read messages/view channels`` 
-> ``send messages`` 
-> ``manage messages`` 
-> ``embed links`` 
-> ``attach files`` 
-> ``read message history`` 
-> ``add reactions`` 
-3. replace <em>YOUR_TOKEN_HERE</em> inside ``data/token.txt`` with your bot token
-4. replace <em>YOUR_CATEGORIES HERE</em> inside ``data/categories.txt`` with the ids of the categories you want the bot to read reactions from
-5. replace <em>YOUR_CHANNELS_HERE</em> inside ``data/channels.txt`` with the ids of the channels you want the bot to post
-### public-hosting
-##### <em>coming soon</em>
+> manage roles,
+> manage channels,
+> moderate members,
+> read messages/view channels,
+> send messages,
+> manage messages,
+> embed links,
+> attach files,
+> read message history,
+> add reactions 
+3. download ```cardjitsu-bot.zip``` from the latest release
+5. replace <em>TOKEN</em> inside ``token.txt`` with your token
+6. replace <em>CHANNEL</em> inside ``channel.txt`` with the id of the channel you want the bot to post in
+7. run ```cj-bot.exe``` to launch the bot<br />
+
+* to deactivate the bot, end <em>CJ-BOT</em> within your task manager
 
 ## compatibility
-#### currently only tested on windows
+- [x] windows
+- [ ] linux
+- [ ] macOS
