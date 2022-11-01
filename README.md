@@ -18,7 +18,7 @@ allows players to play alone instead of with another player
 ## how to use
 ### self-hosting
 1. create a discord application & bot [here](https://discord.com/developers/applications)
-2. add the bot to your desired discord with the following permissions:
+2. add the bot to your discord server with the following permissions:
 > manage roles,
 > manage channels,
 > moderate members,
@@ -32,9 +32,9 @@ allows players to play alone instead of with another player
 3. download ```cardjitsu-bot.zip``` from the latest release
 5. replace <em>TOKEN</em> inside ``token.txt`` with your token
 6. replace <em>CHANNEL</em> inside ``channel.txt`` with the id of the channel you want the bot to post in
-7. run ```cj-bot.exe``` to launch the bot<br />
+7. run ```cardjitsu_bot.exe``` to launch the bot<br />
 
-* to deactivate the bot, end <em>CJ-BOT</em> within your task manager
+* to deactivate the bot, end <em>cardjitsu_bot</em> within your task manager
 
 ## compatibility
 - [x] windows
