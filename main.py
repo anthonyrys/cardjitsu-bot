@@ -120,17 +120,19 @@ def main() -> None:
     discord_bot.run(TOKEN)
 
 if (__name__ == '__main__'):
-    from methods import *
-    
+    from src.methods import *
+
+    import os
+
     TOKEN: str
     CHANNEL: str
 
     # getting token
-    with open('src/main/data/token.txt', 'r') as t:
+    with open(os.path.join('data', 'token.txt'), 'r') as t:
         TOKEN = t.readline()
 
     # getting writable channel
-    with open('src/main/data/channel.txt', 'r') as c:
+    with open(os.path.join('data', 'channel.txt'), 'r') as c:
         CHANNEL = c.readline()
 
     main()

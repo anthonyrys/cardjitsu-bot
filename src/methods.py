@@ -1,10 +1,11 @@
 import discord
 import asyncio
 from typing import Dict, List, Union
-from card import card, CARD_CONVERSIONS
-from player import player, bot
-from lobby import lobby
-from game import game
+
+from src.card import card, CARD_CONVERSIONS
+from src.player import player, bot
+from src.lobby import lobby
+from src.game import game
 
 REACTION_CONVERSIONS: Dict[Union[str, List[str]], str] = {
     '✅': 'lobby_create',

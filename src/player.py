@@ -1,6 +1,7 @@
 import random
 from typing import List
-from card import card
+
+from src.card import card
 
 class player:
     def __init__(self) -> None:

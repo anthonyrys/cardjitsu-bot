@@ -1,6 +1,7 @@
 from typing import List, Dict, Union
-from card import card
-from player import player, bot
+
+from src.card import card
+from src.player import player, bot
 
 '''
     Original rules: https://clubpenguin.fandom.com/wiki/Card-Jitsu#Winning

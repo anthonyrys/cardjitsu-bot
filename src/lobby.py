@@ -1,8 +1,9 @@
 import discord
 from dataclasses import dataclass
 from typing import Dict, List, Union
-from player import player
-from game import game
+
+from src.player import player
+from src.game import game
 
 @dataclass
 class lobby:
